@@ -1,8 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const TrendingItem = ({ id, title, name }) => {
     return (
-        <li key={id}>{title || name}</li>
+        <li key={id}>
+            <Link to="#">{title || name}</Link>
+        </li>
     )
 }
 
