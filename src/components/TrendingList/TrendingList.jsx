@@ -7,7 +7,9 @@ const TrendingList = ({ data }) => {
             {data.map(({id, title, name}) => (
                 <TrendingItem
                     key={id}
-                    title={title || name}
+                    id={id}
+                    title={title}
+                    name={name}
                 />
             ))}
         </ul>
