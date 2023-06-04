@@ -1,5 +1,4 @@
 import React from 'react';
-import GenreList from 'components/GenreList/GenreList';
 
 const MovieCard = ({ movieInfo }) => {
   const { title, imgPath, userScore, overview, releaseDate, genres } =
@@ -16,6 +15,7 @@ const MovieCard = ({ movieInfo }) => {
         <h3>Overview</h3>
         <p>{overview}</p>
         <h3>Genres</h3>
+        <p>{genres}</p>
       </div>
     </div>
   );

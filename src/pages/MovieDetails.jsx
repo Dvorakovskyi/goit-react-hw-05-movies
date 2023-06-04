@@ -23,16 +23,15 @@ const MovieDetails = () => {
           overview,
           genres,
           release_date,
-        }) => {
+        }) =>
           setMovieInfo({
             title,
             imgPath: `${BASE_IMG_URL}${poster_path}`,
             userScore: Math.round(vote_average * 10),
             overview,
             releaseDate: release_date.slice(0, 4),
-            genres,
-          });
-        }
+            genres: genres.map(genre => genre.name).join(' '),
+          })
       )
       .catch(error => setError(error.message));
   }, [movieId]);
@@ -43,7 +42,7 @@ const MovieDetails = () => {
         Notify.failure('Something went wrong, please try again later')
       ) : (
         <section>
-          <Link to={location.state ?? '/'}>Back</Link>
+          <Link to={location.state ?? '/movies'}>Go back</Link>
           <MovieCard movieInfo={movieInfo} />
           <div>
             Additional information
