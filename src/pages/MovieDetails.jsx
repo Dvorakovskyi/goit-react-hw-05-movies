@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Notify } from 'notiflix';
 import { fetchMovieDetails } from 'Api/movie-details-api';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import MovieCard from 'components/MovieCard/MovieCard';
 
 const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w200';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
+  const location = useLocation();
 
-  const [movieInfo, setMovieInfo] = useState({});
+  const [movieInfo, setMovieInfo] = useState([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -42,6 +43,7 @@ const MovieDetails = () => {
         Notify.failure('Something went wrong, please try again later')
       ) : (
         <section>
+          <Link to={location.state ?? '/'}>Back</Link>
           <MovieCard movieInfo={movieInfo} />
           <div>
             Additional information
@@ -50,7 +52,7 @@ const MovieDetails = () => {
                 <Link to="cast">Cast</Link>
               </li>
               <li>
-                <Link>Reviews</Link>
+                <Link to="reviews">Reviews</Link>
               </li>
             </ul>
             <Outlet />

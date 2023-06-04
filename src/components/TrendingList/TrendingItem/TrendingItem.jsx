@@ -1,10 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const TrendingItem = ({ id, title, name }) => {
+    const location = useLocation();
+
     return (
         <li key={id}>
-            <Link to={`movies/${id}`}>{title || name}</Link>
+            <Link to={`movies/${id}`} state={location}>{title || name}</Link>
         </li>
     )
 }
