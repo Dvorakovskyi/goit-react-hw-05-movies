@@ -3,6 +3,12 @@ import { getCast } from 'Api/cast-api';
 import { useParams } from 'react-router-dom';
 import defaultImage from '../../images/actor.jpg';
 import Loader from 'components/Loader/Loader';
+import {
+  StyledImg,
+  StyledActorItem,
+  StyledActorList,
+  StyledActorDescr,
+} from './Cast.styled';
 
 const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w200';
 
@@ -44,15 +50,15 @@ const Cast = () => {
   return (
     <div>
       {isLoader && <Loader />}
-      <ul>
+      <StyledActorList>
         {castInfo.map(({ cast_id, imgPath, name, character }) => (
-          <li key={cast_id}>
-            <img src={imgPath} alt={name} />
-            <p>{name}</p>
-            <p>Character: {character}</p>
-          </li>
+          <StyledActorItem key={cast_id}>
+            <StyledImg src={imgPath} alt={name} />
+            <StyledActorDescr>{name}</StyledActorDescr>
+            <StyledActorDescr>Character: {character}</StyledActorDescr>
+          </StyledActorItem>
         ))}
-      </ul>
+      </StyledActorList>
     </div>
   );
 };

@@ -1,18 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { StyledList } from 'components/TrendingList/TrendingList.styled';
+import { StyledItem, StyledLink } from 'components/TrendingList/TrendingItem/TrendingItem.styled';
 
 const MoviesList = ({ data }) => {
   const location = useLocation();
 
   return (
-    <ul>
+    <StyledList>
       {data.map(({ id, title }) => (
-        <li key={id}>
-          <Link to={`${id}`} state={location}>{title}</Link>
-        </li>
+        <StyledItem key={id}>
+          <StyledLink to={`${id}`} state={location}>{title}</StyledLink>
+        </StyledItem>
       ))}
-    </ul>
+    </StyledList>
   );
 };
 

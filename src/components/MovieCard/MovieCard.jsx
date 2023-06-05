@@ -1,24 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { StyledWrapper, StyledMovieTitle, StyledSecondTitle } from './MovieCard.styled';
 
 const MovieCard = ({ movieInfo }) => {
   const { title, imgPath, userScore, overview, releaseDate, genres } =
     movieInfo;
 
   return (
-    <div>
+    <StyledWrapper>
       <img src={imgPath} alt={title} />
       <div>
-        <h2>
+        <StyledMovieTitle>
           {title} ({releaseDate})
-        </h2>
+        </StyledMovieTitle>
         <p>User score: {userScore}%</p>
-        <h3>Overview</h3>
+        <StyledSecondTitle>Overview</StyledSecondTitle>
         <p>{overview}</p>
-        <h3>Genres</h3>
+        <StyledSecondTitle>Genres</StyledSecondTitle>
         <p>{genres}</p>
       </div>
-    </div>
+    </StyledWrapper>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getReviews } from 'Api/reviews-api';
 import { useParams } from 'react-router-dom';
 import Loader from 'components/Loader/Loader';
+import { StyledReviewItem, StyledAuthor } from './Reviews.styled';
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -25,10 +26,10 @@ const Reviews = () => {
       {reviews.length > 0 ? (
         <ul>
           {reviews.map(({ id, author, content }) => (
-            <li key={id}>
-              Author: {author}
+            <StyledReviewItem key={id}>
+              <StyledAuthor>Author: {author}</StyledAuthor>
               <p>{content}</p>
-            </li>
+            </StyledReviewItem>
           ))}
         </ul>
       ) : (

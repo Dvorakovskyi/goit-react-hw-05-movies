@@ -1,9 +1,19 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { Notify } from 'notiflix';
 import { fetchMovieDetails } from 'Api/movie-details-api';
-import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
+import { Outlet, useParams, useLocation } from 'react-router-dom';
 import MovieCard from 'components/MovieCard/MovieCard';
 import Loader from 'components/Loader/Loader';
+import {
+  StyledSection,
+  StyledList,
+} from 'components/TrendingList/TrendingList.styled';
+import { StyledBackBtn } from 'components/MovieCard/MovieCard.styled';
+import {
+  StyledItem,
+  StyledLink,
+} from 'components/TrendingList/TrendingItem/TrendingItem.styled';
+import { StyledReviewsWrapper } from 'components/Reviews/Reviews.styled';
 
 const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w200';
 
@@ -42,26 +52,26 @@ const MovieDetails = () => {
   }, [movieId]);
 
   return (
-    <section>
+    <StyledSection>
       {error && Notify.failure('Something went wrong, please try again later')}
       {isLoader && <Loader />}
-      <Link to={location.state ?? '/movies'}>Go back</Link>
+      <StyledBackBtn to={location.state ?? '/movies'}>Go back</StyledBackBtn>
       <MovieCard movieInfo={movieInfo} />
-      <div>
-        Additional information
-        <ul>
-          <li>
-            <Link to="cast">Cast</Link>
-          </li>
-          <li>
-            <Link to="reviews">Reviews</Link>
-          </li>
-        </ul>
+      <StyledReviewsWrapper>
+        <h3>Additional information</h3>
+        <StyledList>
+          <StyledItem>
+            <StyledLink to="cast">Cast</StyledLink>
+          </StyledItem>
+          <StyledItem>
+            <StyledLink to="reviews">Reviews</StyledLink>
+          </StyledItem>
+        </StyledList>
         <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>
-      </div>
-    </section>
+      </StyledReviewsWrapper>
+    </StyledSection>
   );
 };
 export default MovieDetails;
