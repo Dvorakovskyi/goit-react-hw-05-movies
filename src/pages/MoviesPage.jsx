@@ -4,16 +4,20 @@ import { useState, useEffect } from 'react';
 import { fetchMovies } from 'Api/search-movies-api';
 import SearchMoviesForm from 'components/SearchMoviesForm/SearchMoviesForm';
 import MoviesList from 'components/MoviesList/MoviesList';
+import Loader from 'components/Loader/Loader';
 
 const MoviesPage = () => {
   const [request, setRequest] = useState('');
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState('');
+  const [isLoader, setIsLoader] = useState(false);
 
   useEffect(() => {
     if (request === '') {
       return;
     }
+
+    setIsLoader(true);
 
     fetchMovies(request)
       .then(data => {
@@ -26,7 +30,8 @@ const MoviesPage = () => {
           setMovies(data.results);
         }
       })
-      .catch(error => setError(error.message));
+      .catch(error => setError(error.message))
+      .finally(setIsLoader(false));
   }, [request]);
 
   const handleSubmit = query => {
@@ -38,11 +43,12 @@ const MoviesPage = () => {
   };
 
   return (
-    <section>
+    <main>
       {error && Notify.failure('Something went wrong, please try again later')}
       <SearchMoviesForm onSubmit={handleSubmit} />
+      {isLoader && <Loader />}
       <MoviesList data={movies} />
-    </section>
+    </main>
   );
 };
 

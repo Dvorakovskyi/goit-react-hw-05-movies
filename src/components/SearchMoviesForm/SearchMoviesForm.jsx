@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { StyledSection } from 'components/TrendingList/TrendingList.styled';
+import { StyledFormBtn, StyledInput, StyledForm } from './SearchMoviesForm.styled';
 
 const SearchMoviesForm = ({ onSubmit }) => {
   const [request, setRequest] = useState('');
@@ -19,8 +22,9 @@ const SearchMoviesForm = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmitForm}>
-      <input
+    <StyledSection>
+    <StyledForm onSubmit={handleSubmitForm}>
+      <StyledInput
         type="text"
         autoComplete="off"
         autoFocus
@@ -28,9 +32,14 @@ const SearchMoviesForm = ({ onSubmit }) => {
         value={request}
         onChange={handlChangeForm}
       />
-      <button type="submit">Search</button>
-    </form>
+      <StyledFormBtn type="submit"></StyledFormBtn>
+      </StyledForm>
+      </StyledSection>
   );
+};
+
+SearchMoviesForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default SearchMoviesForm;
