@@ -36,7 +36,7 @@ const MoviesPage = () => {
       .finally(setIsLoader(false));
   }, [request]);
 
-  const handleSubmit = query => {
+  const handleSubmit = (query) => {
     if (query !== '') {
       setRequest(query);
     } else {
@@ -44,12 +44,13 @@ const MoviesPage = () => {
     }
   };
 
+
   return (
     <main>
       {error && Notify.failure('Something went wrong, please try again later')}
-      <SearchMoviesForm onSubmit={handleSubmit} />
+      <SearchMoviesForm onSubmit={handleSubmit}/>
       {isLoader && <Loader />}
-      <MovieList data={movies} location={location} />
+      <MovieList data={movies} location={location}/>
     </main>
   );
 };

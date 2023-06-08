@@ -1,17 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyledSection } from 'components/TrendingList/MovieList.styled';
-import { StyledFormBtn, StyledInput, StyledForm } from './SearchMoviesForm.styled';
+import {
+  StyledFormBtn,
+  StyledInput,
+  StyledForm,
+} from './SearchMoviesForm.styled';
 import { useSearchParams } from 'react-router-dom';
 
 const SearchMoviesForm = ({ onSubmit }) => {
-    const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const request = searchParams.get('query');
 
   const handlChangeForm = event => {
     const { value } = event.currentTarget;
 
-    setSearchParams({query: value})
+    setSearchParams({ query: value });
   };
 
   const handleSubmitForm = event => {
@@ -22,18 +26,18 @@ const SearchMoviesForm = ({ onSubmit }) => {
 
   return (
     <StyledSection>
-    <StyledForm onSubmit={handleSubmitForm}>
-      <StyledInput
-        type="text"
-        autoComplete="off"
-        autoFocus
-        placeholder="Search movies"
-        defaultValue={request}
-        onChange={handlChangeForm}
-      />
-      <StyledFormBtn type="submit"></StyledFormBtn>
+      <StyledForm onSubmit={handleSubmitForm}>
+        <StyledInput
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search movies"
+          defaultValue={request}
+          onChange={handlChangeForm}
+        />
+        <StyledFormBtn type="submit"></StyledFormBtn>
       </StyledForm>
-      </StyledSection>
+    </StyledSection>
   );
 };
 
