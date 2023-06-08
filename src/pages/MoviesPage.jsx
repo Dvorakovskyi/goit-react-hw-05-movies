@@ -3,14 +3,16 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { useState, useEffect } from 'react';
 import { fetchMovies } from 'Api/search-movies-api';
 import SearchMoviesForm from 'components/SearchMoviesForm/SearchMoviesForm';
-import MoviesList from 'components/MoviesList/MoviesList';
 import Loader from 'components/Loader/Loader';
+import { useLocation } from 'react-router-dom';
+import MovieList from 'components/TrendingList/MovieList';
 
 const MoviesPage = () => {
   const [request, setRequest] = useState('');
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState('');
   const [isLoader, setIsLoader] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     if (request === '') {
@@ -47,7 +49,7 @@ const MoviesPage = () => {
       {error && Notify.failure('Something went wrong, please try again later')}
       <SearchMoviesForm onSubmit={handleSubmit} />
       {isLoader && <Loader />}
-      <MoviesList data={movies} />
+      <MovieList data={movies} location={location} />
     </main>
   );
 };

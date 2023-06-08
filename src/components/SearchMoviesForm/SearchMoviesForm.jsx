@@ -1,24 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { StyledSection } from 'components/TrendingList/TrendingList.styled';
+import { StyledSection } from 'components/TrendingList/MovieList.styled';
 import { StyledFormBtn, StyledInput, StyledForm } from './SearchMoviesForm.styled';
+import { useSearchParams } from 'react-router-dom';
 
 const SearchMoviesForm = ({ onSubmit }) => {
-  const [request, setRequest] = useState('');
+    const [searchParams, setSearchParams] = useSearchParams();
+  const request = searchParams.get('query');
 
   const handlChangeForm = event => {
     const { value } = event.currentTarget;
 
-    setRequest(value);
+    setSearchParams({query: value})
   };
 
   const handleSubmitForm = event => {
     event.preventDefault();
 
     onSubmit(request);
-
-    setRequest('');
   };
 
   return (
@@ -29,7 +28,7 @@ const SearchMoviesForm = ({ onSubmit }) => {
         autoComplete="off"
         autoFocus
         placeholder="Search movies"
-        value={request}
+        defaultValue={request}
         onChange={handlChangeForm}
       />
       <StyledFormBtn type="submit"></StyledFormBtn>

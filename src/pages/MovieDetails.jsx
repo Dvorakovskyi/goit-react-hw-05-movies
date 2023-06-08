@@ -1,18 +1,18 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { Notify } from 'notiflix';
 import { fetchMovieDetails } from 'Api/movie-details-api';
-import { Outlet, useParams, useLocation } from 'react-router-dom';
+import { Outlet, useParams, useLocation, useNavigate } from 'react-router-dom';
 import MovieCard from 'components/MovieCard/MovieCard';
 import Loader from 'components/Loader/Loader';
 import {
   StyledSection,
   StyledList,
-} from 'components/TrendingList/TrendingList.styled';
+} from 'components/TrendingList/MovieList.styled';
 import { StyledBackBtn } from 'components/MovieCard/MovieCard.styled';
 import {
   StyledItem,
   StyledLink,
-} from 'components/TrendingList/TrendingItem/TrendingItem.styled';
+} from 'components/TrendingList/MovieItem/MovieItem.styled';
 import { StyledReviewsWrapper } from 'components/Reviews/Reviews.styled';
 
 const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w200';
@@ -20,6 +20,8 @@ const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w200';
 const MovieDetails = () => {
   const { movieId } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
+  const backLinkHref = location.state?.from ?? '/movies';
 
   const [movieInfo, setMovieInfo] = useState([]);
   const [error, setError] = useState('');
@@ -55,16 +57,22 @@ const MovieDetails = () => {
     <StyledSection>
       {error && Notify.failure('Something went wrong, please try again later')}
       {isLoader && <Loader />}
-      <StyledBackBtn to={location.state ?? '/movies'}>Go back</StyledBackBtn>
+      <StyledBackBtn type="button" onClick={() => navigate(backLinkHref)}>
+        Go back
+      </StyledBackBtn>
       <MovieCard movieInfo={movieInfo} />
       <StyledReviewsWrapper>
         <h3>Additional information</h3>
         <StyledList>
           <StyledItem>
-            <StyledLink to="cast">Cast</StyledLink>
+            <StyledLink to="cast" state={{ from: backLinkHref }}>
+              Cast
+            </StyledLink>
           </StyledItem>
           <StyledItem>
-            <StyledLink to="reviews">Reviews</StyledLink>
+            <StyledLink to="reviews" state={{ from: backLinkHref }}>
+              Reviews
+            </StyledLink>
           </StyledItem>
         </StyledList>
         <Suspense fallback={<Loader />}>

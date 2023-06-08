@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
-import { StyledLink, StyledItem } from './TrendingItem.styled';
+import { StyledLink, StyledItem } from './MovieItem.styled';
 
-const TrendingItem = ({ id, title, name }) => {
-  const location = useLocation();
-
+const TrendingItem = ({ id, title, name, location }) => {
   return (
     <StyledItem key={id}>
-      <StyledLink to={`movies/${id}`} state={location}>
+      <StyledLink to={`/movies/${id}`} state={{ from: location }}>
         {title || name}
       </StyledLink>
     </StyledItem>

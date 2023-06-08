@@ -9,6 +9,8 @@ export const StyledSection = styled.section`
 
 export const StyledTitle = styled.h2`
     margin: 0;
+    margin-top: 10px;
+    padding-left: 20px;
 `;
 
 export const StyledList = styled.ul`
