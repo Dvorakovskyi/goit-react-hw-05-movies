@@ -1,21 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { fetchMovies } from 'Api/search-movies-api';
 import SearchMoviesForm from 'components/SearchMoviesForm/SearchMoviesForm';
 import Loader from 'components/Loader/Loader';
-import { useLocation } from 'react-router-dom';
 import MovieList from 'components/TrendingList/MovieList';
 
 const MoviesPage = () => {
-  const [request, setRequest] = useState('');
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState('');
   const [isLoader, setIsLoader] = useState(false);
-  const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const request = searchParams.get('query');
 
   useEffect(() => {
-    if (request === '') {
+    if (request === null) {
       return;
     }
 
@@ -36,21 +35,20 @@ const MoviesPage = () => {
       .finally(setIsLoader(false));
   }, [request]);
 
-  const handleSubmit = (query) => {
+  const handleSubmit = query => {
     if (query !== '') {
-      setRequest(query);
+      setSearchParams({ query });
     } else {
       Notify.info('I`m waiting for your request');
     }
   };
 
-
   return (
     <main>
       {error && Notify.failure('Something went wrong, please try again later')}
-      <SearchMoviesForm onSubmit={handleSubmit}/>
+      <SearchMoviesForm onSubmit={handleSubmit} request={request} />
       {isLoader && <Loader />}
-      <MovieList data={movies} location={location}/>
+      <MovieList data={movies} />
     </main>
   );
 };

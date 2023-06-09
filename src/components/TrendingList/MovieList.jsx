@@ -3,18 +3,12 @@ import PropTypes from 'prop-types';
 import MovieItem from './MovieItem/MovieItem';
 import { StyledSection, StyledList } from './MovieList.styled';
 
-const MovieList = ({ data, location }) => {
+const MovieList = ({ data }) => {
   return (
     <StyledSection>
       <StyledList>
         {data.map(({ id, title, name }) => (
-          <MovieItem
-            key={id}
-            id={id}
-            title={title}
-            name={name}
-            location={location}
-          />
+          <MovieItem key={id} id={id} title={title} name={name} />
         ))}
       </StyledList>
     </StyledSection>

@@ -6,22 +6,14 @@ import {
   StyledInput,
   StyledForm,
 } from './SearchMoviesForm.styled';
-import { useSearchParams } from 'react-router-dom';
 
-const SearchMoviesForm = ({ onSubmit }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const request = searchParams.get('query');
-
-  const handlChangeForm = event => {
-    const { value } = event.currentTarget;
-
-    setSearchParams({ query: value });
-  };
-
+const SearchMoviesForm = ({ onSubmit, request }) => {
   const handleSubmitForm = event => {
     event.preventDefault();
 
-    onSubmit(request);
+    const searchString = event.currentTarget.elements.search.value;
+
+    onSubmit(searchString);
   };
 
   return (
@@ -29,11 +21,11 @@ const SearchMoviesForm = ({ onSubmit }) => {
       <StyledForm onSubmit={handleSubmitForm}>
         <StyledInput
           type="text"
+          name="search"
           autoComplete="off"
           autoFocus
           placeholder="Search movies"
           defaultValue={request}
-          onChange={handlChangeForm}
         />
         <StyledFormBtn type="submit"></StyledFormBtn>
       </StyledForm>
@@ -43,6 +35,7 @@ const SearchMoviesForm = ({ onSubmit }) => {
 
 SearchMoviesForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  request: PropTypes.string,
 };
 
 export default SearchMoviesForm;
